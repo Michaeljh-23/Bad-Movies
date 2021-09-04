@@ -12,7 +12,7 @@ let getMoviesByKeyword = (keyword, callback) => {
   console.log('genre provided to helper ---> ', keyword)
 
   let options = {
-    url: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${keyword}`,
+    url: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${keyword}&page=1`,
     headers: {
       'User-Agent': 'request',
       //'Authorization': `token ${config.TOKEN}`
@@ -20,10 +20,30 @@ let getMoviesByKeyword = (keyword, callback) => {
   }
   axios.request(options)
   .then(res => {
-    callback (res)
+    console.log('CALLBACK NOTICE ME')
+    callback (null, res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+let getGenres = (callback) => {
+  let options = {
+    url: `https://api.themoviedb.org/3/genre/movie/list?api_key=b940a5e10fb325c0791b0cea3dad5b51&language=en-US`,
+
+    headers: {
+      'User-Agent': 'request',
+      //'Authorization': `token ${config.TOKEN}`
+    }
+  }
+  axios.request(options)
+  .then(res => {
+    console.log('CALLBACK NOTICE ME')
+    callback (null, res.data)
   })
   .catch(err => {
     console.log(err)
   })
 }
 // Don't forget to export your functions and require them within your server file
+module.exports = {getMoviesByKeyword: getMoviesByKeyword, getGenres: getGenres};

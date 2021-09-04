@@ -6,7 +6,7 @@ class Movies extends React.Component {
 
   }
 
-  // Make an onClick for each list item. If the movies shown is the search results, 
+  // Make an onClick for each list item. If the movies shown is the search results,
   // onClick add it to the database (do it in the main app, and pass down the function)
 
   // If you're currently showing the fave list, delete the movie instead
