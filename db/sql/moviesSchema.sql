@@ -1,1 +1,19 @@
 -- SET UP SCHEMA HERE
+
+CREATE DATABASE badMovies;
+
+USE badMovies;
+
+CREATE TABLE movies (
+  id INTEGER AUTO_INCREMENT NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  backdrop_path VARCHAR(100),
+  release_date VARCHAR(30) DATE NOT NULL,
+  genre INTEGER FOREIGN KEY REFERENCES genre(genre_id)
+  vote_average INTEGER NOT NULL,
+  vote_count INTEGER NOT NULL,
+)
+CREATE TABLE genre (
+  genre_id INTEGER AUTO_INCREMENT NOT NULL,
+  name VARCHAR(50)
+)
