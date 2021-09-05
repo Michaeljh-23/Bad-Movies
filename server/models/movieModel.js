@@ -18,14 +18,15 @@ module.exports = {
     })
   }),
 
-  postFavorite: ('/save', (req, res) => {
+  postFavorite: (movieId => {
     var queryString = 'INSERT INTO favorites (movie_id) VALUES (?);';
-    sqlDb.query(queryString, [], (err, response) => {
-      if(err) {
-        console.log(err)
+
+    sqlDb.query(queryString, [movieId], (err, response) => {
+      if (err) {
+        //console.log(response.body)
+        console.log('error saving  ----> ', err)
       } else {
-        console.log(`successfully posted ${response} to db`)
-        res.sendStatus(201)
+        console.log(`successfully posted ${movieId} to db`)
       }
     })
   })

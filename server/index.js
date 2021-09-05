@@ -9,6 +9,7 @@ var db = require('./models/movieModel.js')
 
 //Helpers
 var apiHelpers = require("./helpers/apiHelpers.js");
+const { postFavorite } = require("./models/movieModel.js");
 
 //Middleware
 app.use(express.json());
@@ -68,9 +69,8 @@ app.get("/search", function(req, res) {
   // and sort them by votes (worst first) using the search parameters in themoviedb API
   // do NOT save the results into the database; render results directly on the page
   console.log('req body -----> ', req.body)
-  var keyword = req.body.keyword;
-  helper.getMoviesByKeyword(keyword, (err, data) => {
-    console.log('SOMETHING HEREEEEEEEE', err)
+  var genreVar = req.body.genre;
+  helper.getMoviesByKeyword(genreVar, (err, data) => {
     if (err) {
       console.log(err)
     } else {
@@ -92,17 +92,25 @@ app.get("/search", function(req, res) {
     }
     res.send(movies)
   })
-
-
 });
 
 app.post("/save", function(req, res) {
   //save movie as favorite into the database
-
+  console.log(req.body.title)
+  db.postFavorite(req.body.id, (err, response) => {
+    if (err) {
+      res.sendStatus(404).send('good ol error in post route-->  ', err)
+    } else {
+      console.log(`successfully added movie ${response} to favorites`)
+      res.sendStatus(200).send(response)
+    }
+  }
+  )
 });
 
 app.post("/delete", function(req, res) {
   //remove movie from favorites into the database
+
 });
 
 //***********************************************************************************************************************

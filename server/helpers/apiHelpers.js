@@ -27,6 +27,8 @@ let getMoviesByKeyword = (keyword, callback) => {
     console.log(err)
   })
 }
+
+
 let getGenres = (callback) => {
   let options = {
     url: `https://api.themoviedb.org/3/genre/movie/list?api_key=b940a5e10fb325c0791b0cea3dad5b51&language=en-US`,
